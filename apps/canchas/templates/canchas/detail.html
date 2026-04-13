@@ -1,0 +1,28 @@
+{% extends 'canchas/fragments/base.html' %}
+{% block main-content %}
+    <div class="row">
+        <div class="col s8 offset-s2">
+            <div class="card">
+                {% if cancha.imagen %}
+                <div class="card-image">
+                    <img src="{{ cancha.imagen.url }}" height="400px" style="object-fit: cover;">
+                </div>
+                {% endif %}
+                <div class="card-content">
+                    <span class="card-title">{{ cancha.name }}</span>
+                    <p><b>Deporte:</b> {{ cancha.deporte }}</p>
+                    <p><b>Precio por hora:</b> ${{ cancha.precio_hora }}</p>
+                    <p><b>Descripción:</b> {{ cancha.descripcion }}</p>
+                    <p><b>Estado:</b> {% if cancha.activa %}Activa{% else %}Inactiva{% endif %}</p>
+                    <p><b>Creada:</b> {{ cancha.created }}</p>
+                    <p><b>Última actualización:</b> {{ cancha.updated }}</p>
+                </div>
+                <div class="card-action">
+                    <a href="{{ cancha.get_edit_url }}" class="green-text">Editar</a>
+                    <a href="{{ cancha.get_delete_url }}" class="red-text">Desactivar</a>
+                    <a href="{% url 'canchas:home' %}" class="grey-text">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

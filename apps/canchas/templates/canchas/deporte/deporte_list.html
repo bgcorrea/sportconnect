@@ -1,0 +1,38 @@
+{% extends 'canchas/fragments/base.html' %}
+{% block main-content %}
+    <div class="row">
+        <div class="col s12">
+            <h5 class="green-text darken-2">Deportes</h5>
+            {% if not deportes %}
+                <div class="card-panel orange">
+                    <span class="white-text">No hay deportes registrados actualmente</span>
+                </div>
+            {% else %}
+                <table class="striped centered">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Mín. jugadores</th>
+                        <th>Máx. jugadores</th>
+                        <th>Creado</th>
+                        <th>Actualizado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for deporte in deportes %}
+                        <tr>
+                            <td>{{ deporte.name }}</td>
+                            <td>{{ deporte.descripcion|truncatechars:80 }}</td>
+                            <td>{{ deporte.min_jugadores }}</td>
+                            <td>{{ deporte.max_jugadores }}</td>
+                            <td>{{ deporte.created|timesince }}</td>
+                            <td>{{ deporte.updated|timesince }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

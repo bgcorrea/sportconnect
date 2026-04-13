@@ -1,0 +1,45 @@
+{% extends 'canchas/fragments/base.html' %}
+{% block main-content %}
+    <div class="row">
+        <div class="col s12">
+            <a class="waves-effect waves-light btn right green darken-2" href="{% url 'canchas:reserva-create' %}">
+                <i class="material-icons left">add</i>Nueva reserva
+            </a>
+            <h5 class="green-text darken-2">Reservas</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            {% if not reservas %}
+                <div class="card-panel orange">
+                    <span class="white-text">No hay reservas registradas actualmente</span>
+                </div>
+            {% else %}
+                <table class="striped centered">
+                    <thead>
+                    <tr>
+                        <th>Cancha</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                        <th>Hora inicio</th>
+                        <th>Hora fin</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for reserva in reservas %}
+                        <tr>
+                            <td>{{ reserva.cancha }}</td>
+                            <td>{{ reserva.usuario }}</td>
+                            <td>{{ reserva.fecha }}</td>
+                            <td>{{ reserva.hora_inicio }}</td>
+                            <td>{{ reserva.hora_fin }}</td>
+                            <td>{{ reserva.estado }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
