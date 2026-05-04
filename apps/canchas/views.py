@@ -88,6 +88,15 @@ def reserva_create(request, **kwargs):
     if request.POST and form.is_valid():
         reserva = form.save(commit=False)
         reserva.usuario = request.user
-        reserva.save()
-        return redirect('canchas:reserva-list')
+        solapada = Reserva.objects.filter(
+            cancha=reserva.cancha,
+            fecha=reserva.fecha,
+            hora_inicio__lt=reserva.hora_fin,
+            hora_fin__gt=reserva.hora_inicio,
+        ).exists()
+        if solapada:
+            form.add_error(None, "Ya existe una reserva para esta cancha en ese horario.")
+        else:
+            reserva.save()
+            return redirect('canchas:reserva-list')
     return render(request, 'canchas/reserva/reserva_form.html', {'form': form})
