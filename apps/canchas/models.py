@@ -31,6 +31,8 @@ class Cancha(BaseName):
     deporte      = models.ForeignKey(Deporte, on_delete=models.CASCADE, verbose_name="Deporte")
     imagen       = models.ImageField(upload_to="canchas/", blank=True, verbose_name="Imagen")
     activa       = models.BooleanField(default=True, verbose_name="Activa")
+    direccion    = models.CharField(max_length=200, blank=True, verbose_name="Dirección")
+    capacidad    = models.IntegerField(default=10, verbose_name="Capacidad")
 
     class Meta:
         verbose_name = "Cancha"
