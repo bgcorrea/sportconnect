@@ -9,9 +9,9 @@ Simple CRUD con django, utilizando vistas basadas en funciones y autentificacion
 
 ## Despliegue en producción
 
-**URL pública:** https://sportconnect.onrender.com
+**URL pública:** https://sportconnect.up.railway.app
 
-**Stack:** Render Web Service + PostgreSQL gestionada + WhiteNoise + Gunicorn
+**Stack:** Railway + PostgreSQL gestionada + WhiteNoise + Gunicorn
 
 ### Variables de entorno requeridas
 
@@ -20,13 +20,15 @@ Simple CRUD con django, utilizando vistas basadas en funciones y autentificacion
 | `SECRET_KEY` | Clave secreta de Django (generar una nueva para producción) |
 | `DEBUG` | `False` en producción |
 | `ALLOWED_HOSTS` | Hosts permitidos separados por coma |
-| `DATABASE_URL` | URL de conexión PostgreSQL (la provee Render automáticamente) |
+| `DATABASE_URL` | URL de conexión PostgreSQL (Railway la inyecta automáticamente via reference) |
 
 ### Credenciales demo
 
 - **Usuario:** `demo`
 - **Contraseña:** `sportconnect2026`
 
-### Nota sobre cold start
+### Proveedores soportados
 
-El plan gratuito de Render suspende el servicio tras 15 minutos de inactividad. El primer request tras la suspensión tarda entre 30 y 60 segundos en responder (arranque en frío). Esto es comportamiento esperado.
+El settings.py detecta el proveedor automáticamente via variables de entorno:
+- **Railway:** lee `RAILWAY_PUBLIC_DOMAIN` (inyectada por Railway)
+- **Render:** lee `RENDER_EXTERNAL_HOSTNAME` (inyectada por Render, alternativa documentada)

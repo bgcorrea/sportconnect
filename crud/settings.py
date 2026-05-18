@@ -26,9 +26,13 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-_ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
-_RENDER_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-ALLOWED_HOSTS = _ALLOWED_HOSTS + ([_RENDER_HOSTNAME] if _RENDER_HOSTNAME else [])
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+RENDER_HOST = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_HOST:
+    ALLOWED_HOSTS.append(RENDER_HOST)
+RAILWAY_HOST = os.environ.get('RAILWAY_PUBLIC_DOMAIN')
+if RAILWAY_HOST:
+    ALLOWED_HOSTS.append(RAILWAY_HOST)
 
 # Application definition
 
@@ -136,7 +140,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
 
 LOGIN_URL = '/'
 
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'https://*.onrender.com']
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+    'https://*.onrender.com',
+    'https://*.up.railway.app',
+]
 
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
