@@ -9,7 +9,7 @@ Simple CRUD con django, utilizando vistas basadas en funciones y autentificacion
 
 ## Despliegue en producción
 
-**URL pública:** https://sportconnect.up.railway.app
+**URL pública:** https://web-production-1d92a.up.railway.app
 
 **Stack:** Railway + PostgreSQL gestionada + WhiteNoise + Gunicorn
 
