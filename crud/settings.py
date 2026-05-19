@@ -156,10 +156,16 @@ CSRF_COOKIE_SECURE = not DEBUG
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
     "http://localhost:8081",
-    "http://localhost:19006",
     "http://localhost:19000",
+    "http://localhost:19006",
 ]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
+
 CORS_ALLOW_ALL_ORIGINS = config("CORS_ALLOW_ALL_ORIGINS", default=False, cast=bool)
 
 REST_FRAMEWORK = {
